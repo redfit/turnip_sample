@@ -5,9 +5,13 @@ require 'rspec/rails'
 require 'email_spec'
 require 'rspec/autorun'
 
+require 'turnip'
+require 'turnip/capybara'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join("spec/**/*steps.rb")].each {|f| load f, true}
 
 RSpec.configure do |config|
   config.include(EmailSpec::Helpers)
@@ -38,7 +42,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
